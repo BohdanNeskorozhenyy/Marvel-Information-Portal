@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import "../../style/variables.scss";
 
 .randomchar {
     display: grid;
@@ -41,6 +41,7 @@
         background-color: $dark;
         position: relative;
         button {
+            position: relative;
             margin-top: 13px;
         }
     }
@@ -49,7 +50,7 @@
         font-size: 24px;
         line-height: 32px;
         letter-spacing: -0.045em;
-        color: #FFFFFF;
+        color: #ffffff;
         &:nth-child(2) {
             margin-top: 33px;
         }
@@ -58,5 +59,34 @@
         position: absolute;
         bottom: 14px;
         right: -37px;
+    }
+}
+.loader {
+    position:absolute;
+    right:10px;
+    top: 30%;
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #3498db;
+    width: 15px;
+    height: 15px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
