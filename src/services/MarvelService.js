@@ -15,8 +15,9 @@ class MarvelServices {
       const res =  await this.getResourses(`${this._apiBase}characters?${this._apiKey}`);
       return res.data.results.map(item => this._transformcharacter(item));
    }
-   getCharactersWithLimit = (limit) => {
-      return this.getResourses(`${this._apiBase}characters?limit=${limit}&offset=210&${this._apiKey}`);
+   getCharactersWithLimit = async(limit) => {
+      const res = await this.getResourses(`${this._apiBase}characters?limit=${limit}&offset=210&${this._apiKey}`);
+      return res.data.results.map(item => this._transformcharacter(item));
    }
    getOneCharacter = async (id) => {
       const res = await this.getResourses(`${this._apiBase}characters/${id}?${this._apiKey}`);
@@ -28,8 +29,8 @@ class MarvelServices {
          description: char.description,
          thumbnail: char.thumbnail.path + '/portrait_xlarge' + "." + char.thumbnail.extension,
          homepage: char.urls[0].url,
-         wiki: char.urls[1].url,
-
+         wiki: char.urls[1].url, 
+         id:char.id
       }
    }
 }
