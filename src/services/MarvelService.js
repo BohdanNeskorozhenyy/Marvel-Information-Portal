@@ -3,6 +3,7 @@
 class MarvelServices {
    _apiBase = 'https://gateway.marvel.com:443/v1/public/';
    _apiKey = 'apikey=0d3d741ca79babd5262fd9ef9bbcc887';
+   _apiKey2 = 'apikey=5c0230b89dedb9a8007dcfcac7b2a18c';
    getResourses = async (url) => {
       const res = await fetch(url);
       if (!res.ok) {
@@ -30,7 +31,8 @@ class MarvelServices {
          thumbnail: char.thumbnail.path + '/portrait_xlarge' + "." + char.thumbnail.extension,
          homepage: char.urls[0].url,
          wiki: char.urls[1].url, 
-         id:char.id
+         id:char.id,
+         comics: char.comics.items
       }
    }
 }

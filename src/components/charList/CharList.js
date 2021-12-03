@@ -5,18 +5,20 @@ import MarvelService from '../../services/MarvelService';
 import './charList.scss';
 
 class CharList extends Component {
-
-    state = {
-        charList: [],
-        loading: true,
-        error: false,
-        limit:9
+    constructor(props){
+        super(props)
+        this.state = {
+            charList: [],
+            loading: true,
+            error: false,
+        }
     }
+
     
     marvelService = new MarvelService();
 
     componentDidMount() {
-        this.marvelService.getCharactersWithLimit(this.state.limit)
+        this.marvelService.getCharactersWithLimit(100)
             .then(this.onCharListLoaded)
             .catch(this.onError)
     }
@@ -36,14 +38,13 @@ class CharList extends Component {
     }
 
     renderItems(arr) {
+        const {onCharSelected} = this.props
         const items =  arr.map((item) => {
-            let imgStyle = {'objectFit' : 'cover'};
-            
             return (
-                <li 
+                <li onClick={()=>onCharSelected(item.id)}
                     className="char__item"
                     key={item.id}>
-                        <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                        <img src={item.thumbnail} alt={item.name}/>
                         <div className="char__name">{item.name}</div>
                 </li>
             )
