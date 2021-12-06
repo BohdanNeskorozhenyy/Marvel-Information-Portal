@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types'
 import Spiner from '../spiner/Spiner';
 import ErrorMesage from '../errorMesage/ErrorMesage';
 import MarvelService from '../../services/MarvelService';
@@ -104,6 +105,10 @@ class CharList extends Component {
             </div>
         )
     }
+}
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired,
+    // onCharSelected: PropTypes.func
 }
 
 export default CharList;
