@@ -30,6 +30,7 @@ class CharInfo extends Component {
         }
     }
 
+    
     updateChar = () => {
         const { charId } = this.props;
         if (!charId) {
@@ -48,7 +49,7 @@ class CharInfo extends Component {
         this.setState({
             char,
             loading: false,
-            error: false
+            error: false,
         })
     }
 
@@ -95,7 +96,7 @@ const View = ({ char }) => {
     return (
         <>
             <div className="char__basics">
-                <img src={thumbnail} alt={name} style={imgStyle} />
+                <img  src={thumbnail} alt={name} style={imgStyle} />
                 <div>
                     <div className="char__info-name">{name}</div>
                     <div className="char__btns">
