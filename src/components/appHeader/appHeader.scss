@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import "../../style/variables.scss";
 
 .app {
     &__header {
@@ -7,10 +7,13 @@
     }
     &__title {
         font-weight: bold;
-        font-size: 28px;
+        font-size: 40px;
         line-height: 37px;
         span {
-            color: $main-color;
+            color: #de3535;
+        }
+        a {
+            color: #de3535;
         }
     }
     &__menu {
@@ -20,12 +23,46 @@
             font-weight: bold;
             font-size: 24px;
             line-height: 32px;
+            color: white;
+            font-size: 30px;
             li {
                 margin: 0 8px;
                 a:hover {
                     color: $main-color;
                 }
             }
+        }
+    }
+}
+@media screen and (max-width: 750px) {
+    .app {
+        &__title {
+            font-size: 30px;
+        }
+        &__menu {
+            ul {
+                display: flex;
+                justify-content: space-between;
+                font-weight: bold;
+                line-height: 32px;
+                color: white;
+                font-size: 16px;
+                li {
+                    margin: 0 8px;
+                    a:hover {
+                        color: $main-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 411px) {
+    .app {
+        &__title {
+            font-size: 20px;
+            max-width: 150px;
         }
     }
 }
