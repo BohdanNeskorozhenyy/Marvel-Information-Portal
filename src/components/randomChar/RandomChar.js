@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 import MarvelServices from '../../services/MarvelService';
@@ -7,66 +7,65 @@ import ErrorMesage from '../errorMesage/ErrorMesage';
 
 import './randomChar.scss';
 
-class RandomChar extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            char: {},
-            loading: false,
-            error: false,
-        }
-        this.marvelServices = new MarvelServices();
+
+const RandomChar = (props) => {
+    const marvelServices = new MarvelServices();
+
+    const [char, setChar] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+
+    useEffect(() => {
+        updateChar();
+    }, [])
+
+    function onCharLoaded(char) {
+        changeErrorStatus(false);
+        setChar(char);
     }
-    componentDidMount() {
-        this.updateChar();
+    function changeLoadingStatus() {
+        setLoading(loading => !loading)
+    }
+    function changeErrorStatus(status) {
+        setError(status)
     }
 
-    onCharLoaded = (char) => {
-        this.changeErrorStatus(false)
-        this.setState({ char: char })
-    }
-    changeLoadingStatus = () => {
-        this.setState({ loading: !this.state.loading })
-    }
-    changeErrorStatus = (status) => {
-        this.setState({ error: status })
-    }
-
-    updateChar = () => {
-        this.changeLoadingStatus()
+    function updateChar() {
+        changeLoadingStatus()
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
-        this.marvelServices.getOneCharacter(id)
-            .then(this.onCharLoaded)
-            .catch(this.changeErrorStatus(true))
-            .finally(this.changeLoadingStatus)
+        marvelServices.getOneCharacter(id)
+            .then(onCharLoaded)
+            .catch(changeErrorStatus(true))
+            .finally(changeLoadingStatus)
 
     }
-    render() {
-        const { loading, char, error } = this.state
-        return (
-            <div className="randomchar">
-                {loading && <Spiner /> || error && <ErrorMesage /> || <View char={char} />}
-                <div className="randomchar__static">
-                    <p className="randomchar__title">
-                        Random character for today!<br />
-                        Do you want to get to know him better?
-                    </p>
-                    <p className="randomchar__title">
-                        Or choose another one
-                    </p>
-                    <button className="button button__main">
-                        <div className="inner" onClick={this.updateChar}>try it</div>
-                    </button>
-                    <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
-                </div>
+
+
+    return (
+        <div className="randomchar">
+            {loading && <Spiner /> || error && <ErrorMesage /> || <View char={char} />}
+            <div className="randomchar__static">
+                <p className="randomchar__title">
+                    Random character for today!<br />
+                    Do you want to get to know him better?
+                </p>
+                <p className="randomchar__title">
+                    Or choose another one
+                </p>
+                <button className="button button__main">
+                    <div className="inner" onClick={updateChar}>try it</div>
+                </button>
+                <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
             </div>
-        )
-    }
+        </div>
+    )
+
 
 }
 
-const View = ({ char }) => {
+const View = (props) => {
     const checkText = (text) => {
         if (!text) {
             return "Information not found";
@@ -78,14 +77,14 @@ const View = ({ char }) => {
     }
 
     const CheckImg = (url) => {
-        if(url && url.indexOf('image_not_available') > 0){
+        if (url && url.indexOf('image_not_available') > 0) {
             return 'randomchar__img randomchar__img--absent'
-        }else{
+        } else {
             return 'randomchar__img'
         }
     }
 
-    const { name, description, thumbnail, homepage, wiki, } = char;
+    const { name, description, thumbnail, homepage, wiki, } = props.char;
 
     return (
         <div className="randomchar__block">
