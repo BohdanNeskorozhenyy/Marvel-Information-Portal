@@ -49,6 +49,7 @@ const CharList = (props) => {
         itemRefs.current[id].classList.add('char__item_selected');
         itemRefs.current[id].focus();
     }
+    
     function renderItems(arr) {
         const items = arr.map((item, i) => {
             let imgStyle = { 'objectFit': 'cover' };
@@ -91,7 +92,6 @@ const CharList = (props) => {
 
     const errorMessage = error ? <ErrorMesage /> : null;
     const spiner = loading && !newItemLoading ? <Spiner /> : null;
-    const content = !(loading && !newItemLoading  || error) ? items : null;
 
     return (
         <div className="char__list">

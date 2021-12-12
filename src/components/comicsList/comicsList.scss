@@ -20,14 +20,16 @@
             font-weight: bold;
             font-size: 14px;
             line-height: 18px;
+            color: white;
         }
         &-price {
             margin-top: 5px;
             font-weight: bold;
             font-size: 14px;
             line-height: 18px;
-            color: rgba(0, 0, 0, 0.6);
             text-transform: uppercase;
+            color: white;
+            opacity: 0.7;
         }
         &:hover {
             transform: translateY(-5px);

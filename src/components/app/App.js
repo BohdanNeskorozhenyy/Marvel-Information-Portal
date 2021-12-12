@@ -3,6 +3,8 @@ import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
+import AppBanner from "../appBanner/AppBanner";
+import ComicsList from "../comicsList/ComicsList";
 import ErrorBoundaries from "../errorBoundaries/ErrorBoundaries";
 
 import decoration from '../../resources/img/vision.png';
@@ -19,7 +21,7 @@ const App = (props) => {
         <div className="app">
             <AppHeader />
             <main>
-                <ErrorBoundaries>
+                {/* <ErrorBoundaries>
                     <RandomChar />
                 </ErrorBoundaries>
                 <div className="char__content">
@@ -30,7 +32,9 @@ const App = (props) => {
                         <CharInfo charId={selectedChar} />
                     </ErrorBoundaries>
                 </div>
-                <img className="bg-decoration" src={decoration} alt="vision" />
+                <img className="bg-decoration" src={decoration} alt="vision" /> */}
+                <AppBanner/>
+                <ComicsList/>
             </main>
         </div>
     )
