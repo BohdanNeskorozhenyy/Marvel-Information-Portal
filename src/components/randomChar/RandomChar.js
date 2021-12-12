@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react';
 import mjolnir from '../../resources/img/mjolnir.png';
-
-import MarvelServices from '../../services/MarvelService';
 import Spiner from '../spiner/Spiner';
 import ErrorMesage from '../errorMesage/ErrorMesage';
+import useMarvelServices from '../../services/MarvelService';
 
 import './randomChar.scss';
 
-
 const RandomChar = (props) => {
-    const marvelServices = new MarvelServices();
+    const { loading, error, getOneCharacter, ClearError} = useMarvelServices();
 
     const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
 
     useEffect(() => {
@@ -21,27 +17,18 @@ const RandomChar = (props) => {
     }, [])
 
     function onCharLoaded(char) {
-        changeErrorStatus(false);
         setChar(char);
     }
-    function changeLoadingStatus() {
-        setLoading(loading => !loading)
-    }
-    function changeErrorStatus(status) {
-        setError(status)
-    }
+
 
     function updateChar() {
-        changeLoadingStatus()
+        ClearError()
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
-        marvelServices.getOneCharacter(id)
+        getOneCharacter(id)
             .then(onCharLoaded)
-            .catch(changeErrorStatus(true))
-            .finally(changeLoadingStatus)
 
     }
-
 
     return (
         <div className="randomchar">
@@ -55,7 +42,7 @@ const RandomChar = (props) => {
                     Or choose another one
                 </p>
                 <button className="button button__main">
-                    <div className="inner" onClick={updateChar}>try it</div>
+                    <div className="inner" onClick={updateChar} >try it</div>
                 </button>
                 <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
             </div>
@@ -83,9 +70,7 @@ const View = (props) => {
             return 'randomchar__img'
         }
     }
-
     const { name, description, thumbnail, homepage, wiki, } = props.char;
-
     return (
         <div className="randomchar__block">
             <img src={thumbnail} alt="Random character" className={CheckImg(thumbnail)} />
