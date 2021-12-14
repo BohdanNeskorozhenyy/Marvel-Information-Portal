@@ -50,7 +50,7 @@ const useMarvelServices = () => {
          pageCount: comics.pageCount ? `${comics.pageCount} p.` : 'No information about the number of pages',
          thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
          language: comics.textObjects.language || 'en-us',
-         price: comics.prices.price ? `${comics.prices.price}$` : 'not available'
+         price: comics.prices[0].price ? `${comics.prices[0].price}$` : 'not available'
      }
    }
    return {loading, error, getAllCharacters, getAllComics, getOneCharacter, ClearError, getOneComics}
