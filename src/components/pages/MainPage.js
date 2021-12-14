@@ -18,13 +18,17 @@ const MainPage = () => {
          <ErrorBoundaries>
             <RandomChar />
          </ErrorBoundaries>
+
          <div className="char__content">
+
             <ErrorBoundaries>
                <CharList onCharSelected={onCharSelected} />
             </ErrorBoundaries>
+            
             <ErrorBoundaries>
                <CharInfo charId={selectedChar} />
             </ErrorBoundaries>
+
          </div>
          <img className="bg-decoration" src={decoration} alt="vision" />
       </>

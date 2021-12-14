@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import useMarvelServices from '../../services/MarvelService';
 import Spiner from '../spiner/Spiner';
+import { Link } from 'react-router-dom';
 import ErrorMesage from '../errorMesage/ErrorMesage';
 import Skeleton from '../skeleton/Skeleton';
 
@@ -11,7 +12,7 @@ import './charInfo.scss';
 const CharInfo = (props) => {
     const [char, setChar] = useState(null);
 
-    const {getOneCharacter, loading, error,  ClearError} = useMarvelServices();
+    const { getOneCharacter, loading, error, ClearError } = useMarvelServices();
 
 
     useEffect(() => {
@@ -53,12 +54,11 @@ const CharInfo = (props) => {
 
 const View = ({ char }) => {
     const { name, description, thumbnail, homepage, wiki, comics } = char;
-
+    console.log('comics ', comics);
     let imgStyle = { 'objectFit': 'cover' };
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
         imgStyle = { 'objectFit': 'contain' };
     }
-
     return (
         <>
             <div className="char__basics">
@@ -83,9 +83,12 @@ const View = ({ char }) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
+                        const id = item.resourceURI.replace(/http:\/\/gateway.marvel.com\/v1\/public\/comics\//, "");
                         return (
                             <li key={i} className="char__comics-item">
-                                {item.name}
+                                <Link to={`/comics/${id}`}>
+                                    {item.name}
+                                </Link>
                             </li>
                         )
                     })

@@ -91,6 +91,33 @@ main {
 
 @media screen and (max-width: 1200px) {
     .bg-decoration {
-       display: none;
+        display: none;
     }
+}
+
+.error-page {
+    width: 100%;
+}
+.error-button {
+    display: block;
+    width: 200px;
+    background-color: #f1f1f1;
+    color: black;
+    font-size: 16px;
+    padding: 16px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+}
+
+.hulk-error {
+    display: block;
+    margin: 0 auto;
 }

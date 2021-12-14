@@ -17,7 +17,7 @@ const AppHeader = () => {
                                 to="/">
                         Characters</NavLink></li>
                     /
-                    <li><NavLink end 
+                    <li><NavLink  
                                 style={ ({ isActive }) => ( {opacity: isActive? '60%': '100%'} ) } 
                                  to="/comics">
                          Comics</NavLink></li>
