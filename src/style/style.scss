@@ -63,13 +63,12 @@ body {
     margin: 0 auto;
     padding: 50px 15px 50px 15px;
     position: relative;
-    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
 main {
     margin-top: 50px;
     position: relative;
-    perspective: 400px;
 }
 
 .pulse {
