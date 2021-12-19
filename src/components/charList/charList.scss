@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import "../../style/variables.scss";
 
 .char {
     &__list {
@@ -19,8 +19,11 @@
         grid-template-columns: repeat(3, 200px);
         column-gap: 25px;
         row-gap: 30px;
+
     }
     &__item {
+        perspective: 400px;
+        transition: 500ms;
         border-radius: 20px;
         width: 200px;
         height: 318px;
@@ -28,7 +31,8 @@
         padding: 15px;
         cursor: pointer;
         transition: 0.3s transform;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+            rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
         img {
             border-top-left-radius: 20px;
             border-top-right-radius: 20px;
@@ -37,9 +41,21 @@
             object-fit: cover;
             transform: translate(-15px, -15px);
         }
-        &_selected {
+        &_selected.char__item_selected {
             box-shadow: 0 5px 20px $main-color;
-            transform: translateY(-8px);
+            transform: translateY(-10px);
+            transition: 500ms;
+        }
+        &-enter {
+            transform: translateX(-750px) rotate(90deg);
+        }
+        &-enter-active {
+            transform: translateX(-750px) rotate(90deg);
+            transition: all 500ms;
+        }
+        &-enter-done {
+            transform: translateX(0) rotate(0deg);
+            transition: all 500ms;
         }
     }
     &__name {

@@ -4,6 +4,10 @@ import Spiner from '../spiner/Spiner';
 import ErrorMesage from '../errorMesage/ErrorMesage';
 import useMarvelService from '../../services/MarvelService';
 import { Link } from 'react-router-dom';
+import {
+    CSSTransition,
+    TransitionGroup,
+} from 'react-transition-group'
 
 const ComicsList = (props) => {
     const [comicsList, setcomicsList] = useState([]);
@@ -14,22 +18,23 @@ const ComicsList = (props) => {
     const { getAllComics, error, loading } = useMarvelService();
 
 
-    useEffect(() => {
-        onRequest(offset, true);
+    useEffect((e) => {
+        onRequest(e,offset, true);
     }, [])
 
-    function onRequest(offset, innitial) {
+    function onRequest(e, offset, innitial) {
+        console.log(innitial)
         innitial ? setnewItemLoading(false) : setnewItemLoading(true)
         if (error) {
             setnewItemLoading(false)
         };
         getAllComics(offset)
-            .then(onComicsListLoaded)
+            .then(res => onComicsListLoaded(res, e))
     }
 
 
 
-    function onComicsListLoaded(newComicsList) {
+    function onComicsListLoaded(newComicsList, e) {
         let ended = false;
         if (newComicsList.length < 8) {
             ended = true;
@@ -39,29 +44,40 @@ const ComicsList = (props) => {
         setcomicsList(comicsList => [...comicsList, ...newComicsList]);
         setnewItemLoading(false);
         setcomicsEnded(ended)
+        if (e) {
+            window.scrollBy(0, 600)
+        }
     }
 
 
 
     function renderItems(arr) {
-        const items = arr.map((item, i) => {
-            return (
-                <li className="comics__item"
-                    tabIndex={0}
-                    key={i}>
-                    <Link to={`/comics/${item.id}`}>
-                        <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" />
-                        <div className="comics__item-name">{item.title}</div>
-                        <div className="comics__item-price">{item.price}</div>
-                    </Link>
-                </li>
-            )
-        });
         return (
-            <ul className="comics__grid">
-                {items}
-            </ul>
+            <TransitionGroup className="comics__grid">
+                {arr.map((item, i) => {
+                    return (
+                        <CSSTransition
+                            key={item.id}
+                            timeout={500}
+                            classNames="comics__item"
+                        >
+                            <li className="comics__item"
+                                tabIndex={0}
+                                key={i}>
+                                <Link to={`/comics/${item.id}`}>
+                                    <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" />
+                                    <div className="comics__item-name">{item.title}</div>
+                                    <div className="comics__item-price">{item.price}</div>
+                                </Link>
+                            </li>
+                        </CSSTransition>
+
+                    )
+                })}
+            </TransitionGroup>
+
         )
+
     }
 
 
@@ -78,7 +94,7 @@ const ComicsList = (props) => {
             {items}
             <button className="button button__main button__long"
                 style={{ 'display': comicsEnded ? 'none' : 'block' }}
-                onClick={() => onRequest(offset)}
+                onClick={(e) => onRequest(e,offset)}
                 disabled={newItemLoading}>
                 <div className="inner">load more</div>
             </button>

@@ -10,23 +10,23 @@ const useMarvelServices = () => {
    const _baseOffset = 210;
 
    const getAllCharacters = async(offset = _baseOffset) => {
-      const res =  await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
+      const res =  await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey2}`);
       return res.data.results.map(item => _transformcharacter(item));
    }
 
    const getAllComics = async(offset = 0) => {
-      const res =  await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+      const res =  await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey2}`);
       return res.data.results.map(item => _transformcomicks(item));
    }
 
    const getOneComics = async (id) => {
-      const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
+      const res = await request(`${_apiBase}comics/${id}?${_apiKey2}`);
       return _transformcomicks(res.data.results[0]);
    }
 
 
    const getOneCharacter = async (id) => {
-      const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
+      const res = await request(`${_apiBase}characters/${id}?${_apiKey2}`);
       return _transformcharacter(res.data.results[0]);
    }
 

@@ -40,6 +40,9 @@ p {
     margin: 0;
     padding: 0;
 }
+html {
+    scroll-behavior: smooth;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -55,16 +58,18 @@ body {
     min-height: 100vh;
 }
 .app {
-    max-width: 1100px;
+    max-width: 1140px;
     width: 100%;
     margin: 0 auto;
     padding: 50px 15px 50px 15px;
     position: relative;
+    overflow: hidden;
 }
 
 main {
     margin-top: 50px;
     position: relative;
+    perspective: 400px;
 }
 
 .pulse {
@@ -120,4 +125,31 @@ main {
 .hulk-error {
     display: block;
     margin: 0 auto;
+}
+
+.page-enter {
+    transform: translateX(-110%);
+    transition: all 500ms;
+}
+.page-enter-active {
+    transform: translateX(-110%);
+    transition: all 500ms;
+}
+.page-enter-done {
+    transform: translateX(0%);
+    transition: all 500ms;
+}
+
+.page-exit {
+    transition: 500ms;
+    transform: scale(1);
+}
+.page-exit-active {
+    transition: 500ms;
+    transform: scale(0.1);
+}
+.page-exit-done {
+    transform: scale(0.1);
+    transform: translateX(-110%);
+    transition: all 500ms;
 }
