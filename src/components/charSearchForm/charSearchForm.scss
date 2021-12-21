@@ -1,0 +1,81 @@
+@import "../../style/variables.scss";
+
+.char {
+   &__search {
+      &-form {
+         padding: 25px;
+         margin-top: 30px;
+         position: relative;
+         z-index: 5;
+         background-color: #fff;
+         border-radius: 20px;
+         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+            rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      }
+      &-label {
+         display: block;
+         font-weight: bold;
+         font-size: 18px;
+         line-height: 24px;
+         color: #000;
+      }
+      &-box{
+         min-height: 100px;
+      }
+      &-wrapper {
+         align-items: flex-start;
+         margin-top: 15px;
+         display: flex;
+         justify-content: space-between;
+         div{
+            width: 100%;
+         }
+         input {
+            padding: 0 10px;
+            width: 100%;
+            max-width: 450px;
+            height: 38px;
+            border: none;
+            background: #ffffff;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            font-size: 14px;
+         }
+      }
+      &-error {
+         margin-top: 25px;
+         font-weight: bold;
+         font-size: 18px;
+         line-height: 24px;
+         color: $main-color;
+      }
+      &-critical-error {
+         margin-top: 25px;
+      }
+      &-success {
+         position: relative;
+         margin-top: 25px;
+         font-weight: bold;
+         font-size: 18px;
+         line-height: 24px;
+         color: #03710e;
+         transition: 250ms;
+         &:hover{
+            transition: 250ms;
+            transform: translateX(20px);
+            &::after{
+               position: absolute;
+               transition: 1000ms;
+               right: -50px;
+               top: -15px;
+               display: inline-block;
+               content: "";
+               width: 50px;
+               height: 50px;
+               background: url(../../resources/img/fist.png) no-repeat center;
+               background-size: contain;
+               margin-left: 10px;
+            }
+         }
+      }
+   }
+}
