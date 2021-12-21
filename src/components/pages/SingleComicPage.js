@@ -5,37 +5,42 @@ import useMarvelServices from '../../services/MarvelService';
 import Spiner from '../spiner/Spiner';
 import ErrorMesage from '../errorMesage/ErrorMesage';
 
-const SingleComicPage = () => {
-    const [comic, setComic] = useState(null);
-
-    const { getOneComics, loading, error, ClearError } = useMarvelServices();
-    
-    const { comicId } = useParams();
+const SingleComicOrCharPage = () => {
+    const [comicOrChar, setComicOrChar] = useState(null);
+    const { getOneComics, loading, error, ClearError, getOneCharacter } = useMarvelServices();
+    const { comicOrCharId, pageType } = useParams();
 
 
     useEffect(() => {
+        console.log(comicOrCharId)
         updateComic();
-    }, [comicId])
+    }, [comicOrCharId, pageType])
 
     function updateComic() {
         ClearError();
-        if (!comicId) {
+        if (!comicOrCharId && !pageType) {
             return;
         }
 
-        getOneComics(comicId)
-            .then(onComicLoaded)
+        if (comicOrCharId && pageType == 'comicPage') {
+            getOneComics(comicOrCharId)
+                .then(onComicOrCharLoaded)
+        } else if (comicOrCharId && pageType == 'charPage') {
+            getOneCharacter(comicOrCharId)
+                .then(onComicOrCharLoaded)
+        }
+
     }
 
-    function onComicLoaded(comic) {
-        setComic(comic);
+    function onComicOrCharLoaded(comic) {
+        setComicOrChar(comic);
     }
 
- 
+
 
     const errorMessage = error ? <ErrorMesage /> : null;
     const spinner = loading ? <Spiner /> : null;
-    const content = !(loading || error || !comic) ? <View comic={comic} /> : null;
+    const content = !(loading || error || !comicOrChar) ? <View comicOrChar={comicOrChar} pageType={pageType} /> : null;
 
     return (
         <div className="char__info">
@@ -47,23 +52,55 @@ const SingleComicPage = () => {
 
 }
 
-const View = ({comic}) =>{
+const View = ({ comicOrChar, pageType }) => {
 
-    const {title, thumbnail, price, pageCount, language, description} = comic;
+    const { title, thumbnail, price, pageCount, language, description, name, comics } = comicOrChar;
 
-    return (
-        <div className="single-comic">
-            <img src={thumbnail} alt="x-men" className="single-comic__img" />
-            <div className="single-comic__info">
-                <h2 className="single-comic__name">{title}</h2>
-                <p className="single-comic__descr">{description}</p>
-                <p className="single-comic__descr">Pages: {pageCount}</p>
-                <p className="single-comic__descr">Language: {language}</p>
-                <div className="single-comic__price">{price}</div>
+    if (pageType == 'comicPage') {
+        return (
+            <div className="single-comic">
+                <img src={thumbnail} alt="x-men" className="single-comic__img" />
+                <div className="single-comic__info">
+                    <h2 className="single-comic__name">{title}</h2>
+                    <p className="single-comic__descr">{description}</p>
+                    <p className="single-comic__descr">Pages: {pageCount}</p>
+                    <p className="single-comic__descr">Language: {language}</p>
+                    <div className="single-comic__price">{price}</div>
+                </div>
+                <Link to='/comics' className="single-comic__back">Back to all</Link>
             </div>
-            <Link to={'/comics'} className="single-comic__back">Back to all</Link>
-        </div>
-    )
+        )
+    } else if (pageType == 'charPage') {
+        return (
+            <div className="single-comic">
+                <img src={thumbnail} alt={name} className="single-comic__img" />
+                <div className="single-comic__info">
+                    <h2 className="single-comic__name">{name}</h2>
+                    <p className="single-comic__descr">{description}</p>
+                </div>
+                <Link to='/' className="single-comic__back">Back to main page</Link>
+                
+                {comics ?
+                    <div className="single-comic__comics-list">
+                        <div className="single-comic__name">Comics:</div>
+                        {
+                            comics.map((item, i) => {
+                                const id = item.resourceURI.replace(/http:\/\/gateway.marvel.com\/v1\/public\/comics\//, "");
+                                return (
+                                    <li key={i} className="char__comics-item">
+                                        <Link to={`/comics/comicPage/${id}`}>
+                                            {item.name}
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                    </div> : null}
+
+            </div>
+        )
+    } return null
+
 }
 
-export default SingleComicPage;
+export default SingleComicOrCharPage;

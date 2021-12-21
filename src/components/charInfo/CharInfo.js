@@ -13,6 +13,7 @@ const CharInfo = (props) => {
     const [char, setChar] = useState(null);
 
     const { getOneCharacter, loading, error, ClearError } = useMarvelServices();
+    const pageType = 'comicPage'
 
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const CharInfo = (props) => {
     const skeleton = char || loading || error ? null : <Skeleton />;
     const errorMessage = error ? <ErrorMesage /> : null;
     const spinner = loading ? <Spiner /> : null;
-    const content = !(loading || error || !char) ? <View char={char} /> : null;
+    const content = !(loading || error || !char) ? <View char={char} pageType={pageType} /> : null;
 
     return (
         <div className="char__info">
@@ -52,7 +53,7 @@ const CharInfo = (props) => {
 
 }
 
-const View = ({ char }) => {
+const View = ({ char, pageType }) => {
     const { name, description, thumbnail, homepage, wiki, comics } = char;
     let imgStyle = { 'objectFit': 'cover' };
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
@@ -85,7 +86,7 @@ const View = ({ char }) => {
                         const id = item.resourceURI.replace(/http:\/\/gateway.marvel.com\/v1\/public\/comics\//, "");
                         return (
                             <li key={i} className="char__comics-item">
-                                <Link to={`/comics/${id}`}>
+                                <Link to={`/comics/${pageType}/${id}`}>
                                     {item.name}
                                 </Link>
                             </li>

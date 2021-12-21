@@ -14,8 +14,8 @@ const ComicsList = (props) => {
     const [newItemLoading, setnewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [comicsEnded, setcomicsEnded] = useState(false)
-
     const { getAllComics, error, loading } = useMarvelService();
+    const pageType = 'comicPage'
 
 
     useEffect((e) => {
@@ -23,7 +23,6 @@ const ComicsList = (props) => {
     }, [])
 
     function onRequest(e, offset, innitial) {
-        console.log(innitial)
         innitial ? setnewItemLoading(false) : setnewItemLoading(true)
         if (error) {
             setnewItemLoading(false)
@@ -64,7 +63,7 @@ const ComicsList = (props) => {
                             <li className="comics__item"
                                 tabIndex={0}
                                 key={i}>
-                                <Link to={`/comics/${item.id}`}>
+                                <Link to={`/comics/${pageType}/${item.id}`}>
                                     <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" />
                                     <div className="comics__item-name">{item.title}</div>
                                     <div className="comics__item-price">{item.price}</div>

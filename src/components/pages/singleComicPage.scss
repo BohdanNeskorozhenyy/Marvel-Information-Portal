@@ -9,6 +9,7 @@
     &__img {
         width: 293px;
         height: 450px;
+        grid-row-start: span 3;
     }
     &__name {
         font-weight: bold;
@@ -19,6 +20,7 @@
         font-size: 18px;
         line-height: 24px;
         margin-top: 25px;
+        margin-bottom: 20px;
     }
     &__price {
         font-weight: bold;

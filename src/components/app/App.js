@@ -63,7 +63,7 @@ import '../appHeader/appHeader.scss'
 const Page404 = lazy(() => import('../pages/404'));
 const MainPage = lazy(() => import('../pages/MainPage'));
 const ComicsPage = lazy(() => import('../pages/ComicsPage'));
-const SingleComicPage = lazy(() => import('../pages/SingleComicPage'));
+const SingleComicOrCharPage = lazy(() => import('../pages/SingleComicPage'));
 
 const routesForNav = [
     { path: '/', name: 'Characters', Component: MainPage, },
@@ -72,7 +72,7 @@ const routesForNav = [
 const allRoutes = [
     { path: '/', name: 'Characters', Component: MainPage, },
     { path: '/comics', name: 'Comics', Component: ComicsPage, },
-    { path: '/comics/:comicId', name: 'SingleComicPage', Component: SingleComicPage, },
+    { path: '/comics/:pageType/:comicOrCharId', name: 'SingleComicPage', Component: SingleComicOrCharPage, },
 ]
 
 const App = (props) => {
@@ -132,14 +132,6 @@ const App = (props) => {
 
 export default App;
 
-
-{/* <Route path="/" element={<MainPage />} />
-
-<Route path="/comics" element={<ComicsPage />} />
-
-<Route path="/comics/:comicId" element={<SingleComicPage />} />
-
-<Route path="*" element={<Page404 />} /> */}
 
 
 
