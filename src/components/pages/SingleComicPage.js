@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from "react-helmet";
 import { useParams, Link } from 'react-router-dom';
 import './singleComicPage.scss';
 import useMarvelServices from '../../services/MarvelService';
@@ -59,6 +60,13 @@ const View = ({ comicOrChar, pageType }) => {
     if (pageType == 'comicPage') {
         return (
             <div className="single-comic">
+                <Helmet>
+                    <meta
+                        name="description"
+                        content={`${title} comics boock`}
+                    />
+                    <title>{title}</title>
+                </Helmet>
                 <img src={thumbnail} alt="x-men" className="single-comic__img" />
                 <div className="single-comic__info">
                     <h2 className="single-comic__name">{title}</h2>
@@ -73,13 +81,20 @@ const View = ({ comicOrChar, pageType }) => {
     } else if (pageType == 'charPage') {
         return (
             <div className="single-comic">
+                <Helmet>
+                    <meta
+                        name="description"
+                        content={`${name} information`}
+                    />
+                    <title>{name}</title>
+                </Helmet>
                 <img src={thumbnail} alt={name} className="single-comic__img" />
                 <div className="single-comic__info">
                     <h2 className="single-comic__name">{name}</h2>
                     <p className="single-comic__descr">{description}</p>
                 </div>
                 <Link to='/' className="single-comic__back">Back to main page</Link>
-                
+
                 {comics ?
                     <div className="single-comic__comics-list">
                         <div className="single-comic__name">Comics:</div>
