@@ -12,7 +12,7 @@ import {
 const ComicsList = (props) => {
     const [comicsList, setcomicsList] = useState([]);
     const [newItemLoading, setnewItemLoading] = useState(false);
-    const [offset, setOffset] = useState(210);
+    const [offset, setOffset] = useState(160);
     const [comicsEnded, setcomicsEnded] = useState(false)
     const { getAllComics, error, loading } = useMarvelService();
     const pageType = 'comicPage'
@@ -39,7 +39,7 @@ const ComicsList = (props) => {
             ended = true;
         }
 
-        setOffset(offset => offset + 9);
+        setOffset(offset => offset + 8);
         setcomicsList(comicsList => [...comicsList, ...newComicsList]);
         setnewItemLoading(false);
         setcomicsEnded(ended)
@@ -56,7 +56,7 @@ const ComicsList = (props) => {
                 {arr.map((item, i) => {
                     return (
                         <CSSTransition
-                            key={item.id}
+                            key={i}
                             timeout={500}
                             classNames="comics__item"
                         >
