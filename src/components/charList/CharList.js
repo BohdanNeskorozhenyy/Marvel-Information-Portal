@@ -71,7 +71,7 @@ const CharList = (props) => {
                     return (
 
                         <CSSTransition
-                            key={i}
+                            key={item.id}
                             timeout={500}
                             classNames="char__item"
                         >

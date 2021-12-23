@@ -12,7 +12,7 @@ import {
 const ComicsList = (props) => {
     const [comicsList, setcomicsList] = useState([]);
     const [newItemLoading, setnewItemLoading] = useState(false);
-    const [offset, setOffset] = useState(160);
+    const [offset, setOffset] = useState(250);
     const [comicsEnded, setcomicsEnded] = useState(false)
     const { getAllComics, error, loading } = useMarvelService();
     const pageType = 'comicPage'
@@ -56,13 +56,12 @@ const ComicsList = (props) => {
                 {arr.map((item, i) => {
                     return (
                         <CSSTransition
-                            key={i}
+                            key={item.id}
                             timeout={500}
                             classNames="comics__item"
+                            tabIndex={0}
                         >
-                            <li className="comics__item"
-                                tabIndex={0}
-                                key={i}>
+                            <li className="comics__item">
                                 <Link to={`/comics/${pageType}/${item.id}`}>
                                     <img src={item.thumbnail} alt="ultimate war" className="comics__item-img" />
                                     <div className="comics__item-name">{item.title}</div>
