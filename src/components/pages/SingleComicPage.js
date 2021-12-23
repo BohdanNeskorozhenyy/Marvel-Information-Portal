@@ -44,7 +44,7 @@ const SingleComicOrCharPage = () => {
     const content = !(loading || error || !comicOrChar) ? <View comicOrChar={comicOrChar} pageType={pageType} /> : null;
 
     return (
-        <div className="char__info">
+        <div className="single-page__box">
             {errorMessage}
             {spinner}
             {content}
